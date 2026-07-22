@@ -29,14 +29,7 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
-          curl -s "https://generativelanguage.googleapis.com/v1beta/models?key=$GEMINI_API_KEY" \
-            | python3 -c "
-import sys, json
-data = json.load(sys.stdin)
-for m in data.get('models', []):
-    if 'generateContent' in m.get('supportedGenerationMethods', []):
-        print(m['name'])
-"
+          curl -s "https://generativelanguage.googleapis.com/v1beta/models?key=$GEMINI_API_KEY" | jq -r '.models[] | select(.supportedGenerationMethods[]? == "generateContent") | .name'
 
       - name: 데이터 수집 + 메일 발송
         env:
