@@ -243,7 +243,8 @@ def format_email_text(upcoming, newly_announced, ai_briefing=None):
         lines.append("■ 이번 주 예정된 실적 발표 없음")
 
     lines.append("")
-    lines.append("(이 메일은 HTML 형식으로 보시면 캘린더와 링크가 함께 표시됩니다.)"
+    lines.append("(이 메일은 HTML 형식으로 보시면 캘린더와 링크가 함께 표시됩니다.)")
+
     return "\n".join(lines)
 
 
