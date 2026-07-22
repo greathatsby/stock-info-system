@@ -25,12 +25,6 @@ jobs:
       - name: 필요한 패키지 설치
         run: pip install -r requirements.txt
 
-      - name: (임시) 사용 가능한 Gemini 모델 확인
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: |
-          curl -s "https://generativelanguage.googleapis.com/v1beta/models?key=$GEMINI_API_KEY" | jq -r '.models[] | select(.supportedGenerationMethods[]? == "generateContent") | .name'
-
       - name: 데이터 수집 + 메일 발송
         env:
           GMAIL_USER: ${{ secrets.GMAIL_USER }}
