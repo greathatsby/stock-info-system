@@ -127,6 +127,33 @@ def get_upcoming(conn, days_ahead=7):
     return cur.fetchall()
 
 
+def fetch_company_context(ticker_symbol):
+    # AI 브리핑에 참고할 섹터/업종/사업개요/최근 뉴스를 야후 파이낸스에서 수집
+    try:
+        ticker = yf.Ticker(ticker_symbol)
+        info = ticker.info or {}
+    except Exception as e:
+        print(f"[경고] {ticker_symbol} 기업 정보 조회 실패: {e}")
+        return {}
+
+    headlines = []
+    try:
+        for item in (ticker.news or [])[:3]:
+            content = item.get("content") if isinstance(item, dict) else None
+            title = (content or {}).get("title") if content else item.get("title")
+            if title:
+                headlines.append(title)
+    except Exception as e:
+        print(f"[경고] {ticker_symbol} 뉴스 조회 실패: {e}")
+
+    return {
+        "sector": info.get("sector"),
+        "industry": info.get("industry"),
+        "summary": info.get("longBusinessSummary"),
+        "news": headlines,
+    }
+
+
 def get_month_earnings(conn, today):
     # 이번 달 캘린더 그리드(앞뒤 다른 달 날짜 포함)에 표시할 실적 일정을 모두 조회
     first_of_month = today.replace(day=1)
@@ -167,7 +194,10 @@ def main():
     month_earnings = get_month_earnings(conn, today)
     conn.close()
 
-    ai_briefing = generate_briefing(upcoming, all_newly_announced)
+    briefing_tickers = {t for t, _, _ in upcoming} | {item["ticker"] for item in all_newly_announced}
+    company_context = {t: fetch_company_context(t) for t in briefing_tickers}
+
+    ai_briefing = generate_briefing(upcoming, all_newly_announced, company_context)
 
     send_email(
         upcoming=upcoming,
