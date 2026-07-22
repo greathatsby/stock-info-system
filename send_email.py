@@ -54,7 +54,7 @@ def _badge_html(ticker, status, date_str):
     else:
         bg, color = "#e8edff", "#3b5bdb"
     return (
-        f'<a href="#day-{date_str}" style="text-decoration:none;">'
+        f'<a href="{_yahoo_link(ticker)}" style="text-decoration:none;">'
         f'<span style="display:inline-block;margin:1px;padding:2px 6px;'
         f'border-radius:4px;background:{bg};color:{color};font-size:11px;'
         f'font-weight:600;white-space:nowrap;">{ticker}</span></a>'
@@ -110,7 +110,7 @@ def build_upcoming_html(upcoming, today):
             '<span style="display:inline-block;min-width:52px;padding:2px 6px;'
             'border-radius:4px;background:#fff1e6;color:#c2410c;font-size:11px;'
             f'font-weight:700;text-align:center;">{d_label}</span> '
-            f'<a href="#day-{report_date}" style="text-decoration:none;color:#111827;">'
+            f'<a href="{_yahoo_link(ticker)}" style="text-decoration:none;color:#111827;">'
             f'{report_date}({_weekday_kr(d)}) <b>{ticker}</b></a> '
             f'<span style="color:#6b7280;font-size:12px;">(컨센서스 EPS {est_str})</span>'
             '</div>'
@@ -165,7 +165,6 @@ def build_detail_html(month_earnings):
                 "</tr>"
             )
         sections.append(
-            f'<a id="day-{date_str}"></a>'
             f'<h4 style="margin:14px 0 4px;font-size:13px;color:#111827;">{date_str}</h4>'
             '<table style="width:100%;border-collapse:collapse;font-size:13px;">'
             '<tr style="color:#6b7280;text-align:left;">'
