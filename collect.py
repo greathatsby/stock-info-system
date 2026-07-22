@@ -4,7 +4,8 @@
 동작 순서:
 1) watchlist.py 에 정의된 종목들의 실적 발표일/컨센서스/실제치를 야후 파이낸스에서 수집
 2) SQLite(stocks.db)에 저장 (이미 있으면 갱신, 없으면 추가 - upsert)
-3) '방금 발표됨(scheduled -> announced)'으로 바뀐 종목과 '이번 주 예정' 종목을 모아 이메일 발송
+3) '방금 발표됨(scheduled -> announced)'으로 바뀐 종목과 '이번 주 예정' 종목,
+   그리고 이번 달 캘린더용 데이터를 모아 이메일 발송
 """
 
 import sqlite3
@@ -125,6 +126,28 @@ def get_upcoming(conn, days_ahead=7):
     return cur.fetchall()
 
 
+def get_month_earnings(conn, today):
+    # 이번 달 캘린더 그리드(앞뒤 다른 달 날짜 포함)에 표시할 실적 일정을 모두 조회
+    first_of_month = today.replace(day=1)
+    if today.month == 12:
+        next_month_first = today.replace(year=today.year + 1, month=1, day=1)
+    else:
+        next_month_first = today.replace(month=today.month + 1, day=1)
+    start = first_of_month - timedelta(days=7)
+    end = next_month_first + timedelta(days=7)
+
+    cur = conn.execute(
+        """
+        SELECT ticker, report_date, eps_estimate, eps_actual, surprise_pct, status
+        FROM earnings
+        WHERE report_date BETWEEN ? AND ?
+        ORDER BY report_date, ticker
+        """,
+        (start.isoformat(), end.isoformat()),
+    )
+    return cur.fetchall()
+
+
 def main():
     conn = sqlite3.connect(DB_PATH)
     init_db(conn)
@@ -138,10 +161,12 @@ def main():
         newly_announced = upsert_earnings(conn, ticker_symbol, df)
         all_newly_announced.extend(newly_announced)
 
+    today = datetime.now(timezone.utc).date()
     upcoming = get_upcoming(conn)
+    month_earnings = get_month_earnings(conn, today)
     conn.close()
 
-    send_email(upcoming=upcoming, newly_announced=all_newly_announced)
+    send_email(upcoming=upcoming, newly_announced=all_newly_announced, month_earnings=month_earnings)
 
 
 if __name__ == "__main__":
