@@ -15,6 +15,7 @@ import yfinance as yf
 
 from watchlist import TICKERS
 from send_email import send_email
+from ai_briefing import generate_briefing
 
 DB_PATH = "stocks.db"
 
@@ -166,7 +167,14 @@ def main():
     month_earnings = get_month_earnings(conn, today)
     conn.close()
 
-    send_email(upcoming=upcoming, newly_announced=all_newly_announced, month_earnings=month_earnings)
+    ai_briefing = generate_briefing(upcoming, all_newly_announced)
+
+    send_email(
+        upcoming=upcoming,
+        newly_announced=all_newly_announced,
+        month_earnings=month_earnings,
+        ai_briefing=ai_briefing,
+    )
 
 
 if __name__ == "__main__":

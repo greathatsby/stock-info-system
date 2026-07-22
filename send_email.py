@@ -176,7 +176,19 @@ def build_detail_html(month_earnings):
     return "".join(sections)
 
 
-def format_email_html(upcoming, newly_announced, month_earnings, today):
+def build_briefing_html(ai_briefing):
+    if not ai_briefing:
+        return ""
+    return (
+        '<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;'
+        'padding:16px;margin:20px 0;">'
+        '<div style="font-size:13px;font-weight:700;margin-bottom:6px;">🤖 AI 실적 브리핑</div>'
+        f'<div style="font-size:13px;color:#334155;line-height:1.6;">{ai_briefing}</div>'
+        "</div>"
+    )
+
+
+def format_email_html(upcoming, newly_announced, month_earnings, today, ai_briefing=None):
     return f"""
     <div style="font-family:-apple-system,Helvetica,sans-serif;max-width:640px;margin:0 auto;color:#111827;">
       <div style="background:#0f172a;color:#fff;border-radius:10px;padding:20px;">
@@ -186,6 +198,8 @@ def format_email_html(upcoming, newly_announced, month_earnings, today):
           {today.isoformat()}({_weekday_kr(today)}) · 평일 아침 8시 발행 · {len(TICKERS)}개 기업 감시
         </div>
       </div>
+
+      {build_briefing_html(ai_briefing)}
 
       <h3 style="margin:20px 0 8px;font-size:15px;">실적발표 캘린더</h3>
       {build_calendar_html(month_earnings, today)}
@@ -201,9 +215,14 @@ def format_email_html(upcoming, newly_announced, month_earnings, today):
     """
 
 
-def format_email_text(upcoming, newly_announced):
+def format_email_text(upcoming, newly_announced, ai_briefing=None):
     today_str = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     lines = [f"국내외 실적 캘린더 ({today_str})", ""]
+
+    if ai_briefing:
+        lines.append("■ AI 실적 브리핑")
+        lines.append(ai_briefing)
+        lines.append("")
 
     if newly_announced:
         lines.append("■ 방금 발표된 실적 (컨센서스 대비)")
@@ -224,18 +243,18 @@ def format_email_text(upcoming, newly_announced):
         lines.append("■ 이번 주 예정된 실적 발표 없음")
 
     lines.append("")
-    lines.append("(이 메일은 HTML 형식으로 보시면 캘린더와 링크가 함께 표시됩니다.)")
+    lines.append("(이 메일은 HTML 형식으로 보시면 캘린더와 링크가 함께 표시됩니다.)"
     return "\n".join(lines)
 
 
-def send_email(upcoming, newly_announced, month_earnings):
+def send_email(upcoming, newly_announced, month_earnings, ai_briefing=None):
     gmail_user = os.environ["GMAIL_USER"]
     gmail_password = os.environ["GMAIL_APP_PASSWORD"]
     recipient = os.environ.get("RECIPIENT_EMAIL") or gmail_user
 
     today = datetime.now(timezone.utc).date()
-    text_body = format_email_text(upcoming, newly_announced)
-    html_body = format_email_html(upcoming, newly_announced, month_earnings, today)
+    text_body = format_email_text(upcoming, newly_announced, ai_briefing)
+    html_body = format_email_html(upcoming, newly_announced, month_earnings, today, ai_briefing)
 
     msg = MIMEMultipart("alternative")
     msg["Subject"] = f"국내외 IR 캘린더 ({today.isoformat()})"
