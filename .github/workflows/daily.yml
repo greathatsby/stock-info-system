@@ -2,8 +2,8 @@ name: Daily Stock Earnings Update
 
 on:
   schedule:
-    # UTC 22:00 (일~목) = KST 07:00 (월~금)
-    - cron: '0 22 * * 0-4'
+    # UTC 22:30 (일~목) = KST 07:30 (월~금)
+    - cron: '30 22 * * 0-4'
   workflow_dispatch:
     # Actions 탭에서 수동으로 "Run workflow" 버튼을 눌러 테스트할 때 사용
 
