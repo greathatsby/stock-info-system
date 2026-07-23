@@ -161,6 +161,31 @@ table.detail-table a { color: #93c5fd; text-decoration: none; }
   color: #475569;
   text-align: center;
 }
+
+.market-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
+}
+.market-tile {
+  background: #0d1526;
+  border: 1px solid #1f2937;
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+.market-label { font-size: 11px; color: #94a3b8; margin-bottom: 4px; }
+.market-value { font-size: 16px; font-weight: 700; color: #f1f5f9; }
+.market-change { font-size: 12px; margin-top: 2px; }
+
+.news-row {
+  padding: 8px 0;
+  border-bottom: 1px solid #1f2937;
+  font-size: 13px;
+}
+.news-row:last-child { border-bottom: none; }
+.news-row a { color: #e2e8f0; text-decoration: none; }
+.news-row a:hover { text-decoration: underline; }
+.news-publisher { color: #64748b; font-size: 11px; margin-left: 6px; }
 """
 
 
@@ -302,6 +327,52 @@ def _build_detail_html(month_earnings):
     return "".join(sections)
 
 
+def _format_market_value(symbol, value):
+    if symbol == "KRW=X":
+        return f"{value:,.1f}원"
+    if symbol == "^TNX":
+        return f"{value:.2f}%"
+    return f"{value:,.2f}"
+
+
+def _build_market_html(market_snapshot):
+    if not market_snapshot:
+        return ""
+    tiles = []
+    for item in market_snapshot:
+        change = item["change_pct"]
+        change_class = "surprise-up" if change >= 0 else "surprise-down"
+        value_str = _format_market_value(item["symbol"], item["value"])
+        tiles.append(
+            '<div class="market-tile">'
+            f'<div class="market-label">{item["label"]}</div>'
+            f'<div class="market-value">{value_str}</div>'
+            f'<div class="market-change {change_class}">{change:+.2f}%</div>'
+            "</div>"
+        )
+    return (
+        '<h2 class="section-title">주요 시장 지표</h2>'
+        f'<div class="market-grid">{"".join(tiles)}</div>'
+    )
+
+
+def _build_news_html(market_news):
+    if not market_news:
+        return ""
+    items = []
+    for item in market_news:
+        publisher = f'<span class="news-publisher">{item["publisher"]}</span>' if item.get("publisher") else ""
+        items.append(
+            '<div class="news-row">'
+            f'<a href="{item["link"]}" target="_blank" rel="noopener">{item["title"]}</a>{publisher}'
+            "</div>"
+        )
+    return (
+        '<h2 class="section-title">경제/시장 뉴스</h2>'
+        f'<div class="card">{"".join(items)}</div>'
+    )
+
+
 def _build_briefing_html(ai_briefing):
     if not ai_briefing:
         return ""
@@ -313,7 +384,16 @@ def _build_briefing_html(ai_briefing):
     )
 
 
-def build_site(upcoming, newly_announced, month_earnings, ai_briefing, today, out_dir=SITE_DIR):
+def build_site(
+    upcoming,
+    newly_announced,
+    month_earnings,
+    ai_briefing,
+    today,
+    market_snapshot=None,
+    market_news=None,
+    out_dir=SITE_DIR,
+):
     os.makedirs(out_dir, exist_ok=True)
 
     html = f"""<!DOCTYPE html>
@@ -332,7 +412,11 @@ def build_site(upcoming, newly_announced, month_earnings, ai_briefing, today, ou
     <div class="meta">{today.isoformat()}({_weekday_kr(today)}) 기준 · 평일 아침 자동 갱신 · {len(TICKERS)}개 기업 감시</div>
   </header>
 
+  {_build_market_html(market_snapshot or [])}
+
   {_build_briefing_html(ai_briefing)}
+
+  {_build_news_html(market_news or [])}
 
   <h2 class="section-title">실적발표 캘린더</h2>
   <div class="card">{_build_calendar_html(month_earnings, today)}</div>

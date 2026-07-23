@@ -176,6 +176,56 @@ def build_detail_html(month_earnings):
     return "".join(sections)
 
 
+def _format_market_value(symbol, value):
+    if symbol == "KRW=X":
+        return f"{value:,.1f}원"
+    if symbol == "^TNX":
+        return f"{value:.2f}%"
+    return f"{value:,.2f}"
+
+
+def build_market_html(market_snapshot):
+    if not market_snapshot:
+        return ""
+    cells = []
+    for item in market_snapshot:
+        change = item["change_pct"]
+        color = "#dc2626" if change >= 0 else "#2563eb"
+        value_str = _format_market_value(item["symbol"], item["value"])
+        cells.append(
+            '<td style="padding:6px 10px;vertical-align:top;">'
+            f'<div style="font-size:11px;color:#6b7280;">{item["label"]}</div>'
+            f'<div style="font-size:14px;font-weight:700;">{value_str}</div>'
+            f'<div style="font-size:12px;color:{color};">{change:+.2f}%</div>'
+            "</td>"
+        )
+    # 4개씩 줄바꿈
+    rows = []
+    for i in range(0, len(cells), 4):
+        rows.append(f"<tr>{''.join(cells[i:i + 4])}</tr>")
+    return (
+        '<h3 style="margin:20px 0 8px;font-size:15px;">주요 시장 지표</h3>'
+        '<table style="width:100%;border-collapse:collapse;">' + "".join(rows) + "</table>"
+    )
+
+
+def build_news_html(market_news):
+    if not market_news:
+        return ""
+    items = []
+    for item in market_news:
+        publisher = f' <span style="color:#9ca3af;font-size:11px;">({item["publisher"]})</span>' if item.get("publisher") else ""
+        items.append(
+            '<div style="padding:6px 0;border-bottom:1px solid #f0f0f0;font-size:13px;">'
+            f'<a href="{item["link"]}" style="text-decoration:none;color:#111827;">{item["title"]}</a>{publisher}'
+            "</div>"
+        )
+    return (
+        '<h3 style="margin:20px 0 8px;font-size:15px;">경제/시장 뉴스</h3>'
+        f"{''.join(items)}"
+    )
+
+
 def build_briefing_html(ai_briefing):
     if not ai_briefing:
         return ""
@@ -188,7 +238,7 @@ def build_briefing_html(ai_briefing):
     )
 
 
-def format_email_html(upcoming, newly_announced, month_earnings, today, ai_briefing=None):
+def format_email_html(upcoming, newly_announced, month_earnings, today, ai_briefing=None, market_snapshot=None, market_news=None):
     return f"""
     <div style="font-family:-apple-system,Helvetica,sans-serif;max-width:640px;margin:0 auto;color:#111827;">
       <div style="background:#0f172a;color:#fff;border-radius:10px;padding:20px;">
@@ -199,7 +249,11 @@ def format_email_html(upcoming, newly_announced, month_earnings, today, ai_brief
         </div>
       </div>
 
+      {build_market_html(market_snapshot or [])}
+
       {build_briefing_html(ai_briefing)}
+
+      {build_news_html(market_news or [])}
 
       <h3 style="margin:20px 0 8px;font-size:15px;">실적발표 캘린더</h3>
       {build_calendar_html(month_earnings, today)}
@@ -215,13 +269,26 @@ def format_email_html(upcoming, newly_announced, month_earnings, today, ai_brief
     """
 
 
-def format_email_text(upcoming, newly_announced, ai_briefing=None):
+def format_email_text(upcoming, newly_announced, ai_briefing=None, market_snapshot=None, market_news=None):
     today_str = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     lines = [f"국내외 실적 캘린더 ({today_str})", ""]
+
+    if market_snapshot:
+        lines.append("■ 주요 시장 지표")
+        for item in market_snapshot:
+            value_str = _format_market_value(item["symbol"], item["value"])
+            lines.append(f"- {item['label']}: {value_str} ({item['change_pct']:+.2f}%)")
+        lines.append("")
 
     if ai_briefing:
         lines.append("■ AI 실적 브리핑")
         lines.append(ai_briefing)
+        lines.append("")
+
+    if market_news:
+        lines.append("■ 경제/시장 뉴스")
+        for item in market_news:
+            lines.append(f"- {item['title']} ({item['link']})")
         lines.append("")
 
     if newly_announced:
@@ -248,14 +315,14 @@ def format_email_text(upcoming, newly_announced, ai_briefing=None):
     return "\n".join(lines)
 
 
-def send_email(upcoming, newly_announced, month_earnings, ai_briefing=None):
+def send_email(upcoming, newly_announced, month_earnings, ai_briefing=None, market_snapshot=None, market_news=None):
     gmail_user = os.environ["GMAIL_USER"]
     gmail_password = os.environ["GMAIL_APP_PASSWORD"]
     recipient = os.environ.get("RECIPIENT_EMAIL") or gmail_user
 
     today = datetime.now(timezone.utc).date()
-    text_body = format_email_text(upcoming, newly_announced, ai_briefing)
-    html_body = format_email_html(upcoming, newly_announced, month_earnings, today, ai_briefing)
+    text_body = format_email_text(upcoming, newly_announced, ai_briefing, market_snapshot, market_news)
+    html_body = format_email_html(upcoming, newly_announced, month_earnings, today, ai_briefing, market_snapshot, market_news)
 
     msg = MIMEMultipart("alternative")
     msg["Subject"] = f"국내외 IR 캘린더 ({today.isoformat()})"

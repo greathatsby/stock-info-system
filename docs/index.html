@@ -148,6 +148,31 @@ table.detail-table a { color: #93c5fd; text-decoration: none; }
   color: #475569;
   text-align: center;
 }
+
+.market-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
+}
+.market-tile {
+  background: #0d1526;
+  border: 1px solid #1f2937;
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+.market-label { font-size: 11px; color: #94a3b8; margin-bottom: 4px; }
+.market-value { font-size: 16px; font-weight: 700; color: #f1f5f9; }
+.market-change { font-size: 12px; margin-top: 2px; }
+
+.news-row {
+  padding: 8px 0;
+  border-bottom: 1px solid #1f2937;
+  font-size: 13px;
+}
+.news-row:last-child { border-bottom: none; }
+.news-row a { color: #e2e8f0; text-decoration: none; }
+.news-row a:hover { text-decoration: underline; }
+.news-publisher { color: #64748b; font-size: 11px; margin-left: 6px; }
 </style>
 </head>
 <body>
@@ -157,6 +182,10 @@ table.detail-table a { color: #93c5fd; text-decoration: none; }
     <h1>국내외 IR 캘린더</h1>
     <div class="meta">2026-07-23(목) 기준 · 평일 아침 자동 갱신 · 20개 기업 감시</div>
   </header>
+
+  
+
+  
 
   
 
