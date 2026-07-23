@@ -19,14 +19,14 @@ SITE_DIR = "docs"
 
 CSS = """
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 }
 * { box-sizing: border-box; }
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Pretendard, sans-serif;
-  background: #0b1120;
-  color: #e2e8f0;
+  background: #fafafa;
+  color: #1e293b;
   line-height: 1.5;
 }
 .container {
@@ -35,48 +35,54 @@ body {
   padding: 24px 16px 60px;
 }
 .hero {
-  background: linear-gradient(135deg, #0f172a, #1e293b);
-  border: 1px solid #1e293b;
+  background: #ffffff;
+  border: 1px solid #fed7aa;
+  border-top: 4px solid #f97316;
   border-radius: 14px;
   padding: 24px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
 }
 .eyebrow {
   font-size: 12px;
   letter-spacing: 2px;
-  color: #93c5fd;
-  font-weight: 600;
+  color: #ea580c;
+  font-weight: 700;
 }
 .hero h1 {
   font-size: 26px;
   margin: 6px 0 8px;
+  color: #111827;
 }
 .meta {
   font-size: 13px;
-  color: #94a3b8;
+  color: #6b7280;
 }
 .section-title {
   font-size: 16px;
   margin: 28px 0 10px;
-  color: #f1f5f9;
+  color: #111827;
+  border-left: 4px solid #f97316;
+  padding-left: 8px;
 }
 .card {
-  background: #111827;
-  border: 1px solid #1f2937;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
   border-radius: 12px;
   padding: 14px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.03);
 }
-.muted { color: #94a3b8; }
+.muted { color: #6b7280; }
 .small { font-size: 12px; }
 
 .briefing-card {
-  background: #0f1e33;
-  border: 1px solid #1e3a5f;
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
   border-radius: 12px;
   padding: 16px;
   margin-top: 20px;
 }
-.briefing-title { font-weight: 700; margin-bottom: 8px; font-size: 14px; }
-.briefing-body { font-size: 14px; color: #cbd5e1; }
+.briefing-title { font-weight: 700; margin-bottom: 8px; font-size: 14px; color: #9a3412; }
+.briefing-body { font-size: 14px; color: #57534e; }
 
 table.calendar {
   width: 100%;
@@ -86,19 +92,19 @@ table.calendar {
 table.calendar th {
   padding: 6px 2px;
   font-size: 11px;
-  color: #64748b;
+  color: #9ca3af;
   font-weight: 500;
 }
 .cal-cell {
   vertical-align: top;
   padding: 4px;
-  border: 1px solid #1f2937;
+  border: 1px solid #f1f5f9;
   min-height: 44px;
   height: 44px;
 }
-.cal-cell-muted .cal-day { color: #334155; }
-.cal-cell-today { background: #1e293b; }
-.cal-day { font-size: 11px; color: #cbd5e1; margin-bottom: 2px; }
+.cal-cell-muted .cal-day { color: #d1d5db; }
+.cal-cell-today { background: #fff7ed; }
+.cal-day { font-size: 11px; color: #374151; margin-bottom: 2px; }
 .cal-badges { display: flex; flex-wrap: wrap; gap: 2px; }
 
 .badge {
@@ -110,12 +116,12 @@ table.calendar th {
   text-decoration: none;
   white-space: nowrap;
 }
-.badge-scheduled { background: #1e2a4a; color: #93c5fd; }
-.badge-announced { background: #1f2937; color: #94a3b8; }
+.badge-scheduled { background: #ffedd5; color: #c2410c; }
+.badge-announced { background: #f1f5f9; color: #6b7280; }
 
 .list-row {
   padding: 8px 0;
-  border-bottom: 1px solid #1f2937;
+  border-bottom: 1px solid #f1f5f9;
   font-size: 13px;
 }
 .list-row:last-child { border-bottom: none; }
@@ -124,21 +130,21 @@ table.calendar th {
   min-width: 46px;
   padding: 2px 6px;
   border-radius: 4px;
-  background: #3a2412;
-  color: #fb923c;
+  background: #ffedd5;
+  color: #c2410c;
   font-size: 11px;
   font-weight: 700;
   text-align: center;
   margin-right: 6px;
 }
-.ticker-link { color: #e2e8f0; text-decoration: none; }
-.ticker-link:hover { text-decoration: underline; }
+.ticker-link { color: #111827; text-decoration: none; }
+.ticker-link:hover { color: #c2410c; text-decoration: underline; }
 
-.surprise-up { color: #f87171; font-weight: 600; }
-.surprise-down { color: #60a5fa; font-weight: 600; }
-.surprise-na { color: #94a3b8; }
+.surprise-up { color: #dc2626; font-weight: 600; }
+.surprise-down { color: #2563eb; font-weight: 600; }
+.surprise-na { color: #9ca3af; }
 
-.detail-date { font-size: 12px; color: #94a3b8; margin: 16px 0 4px; }
+.detail-date { font-size: 12px; color: #6b7280; margin: 16px 0 4px; }
 table.detail-table {
   width: 100%;
   border-collapse: collapse;
@@ -147,18 +153,18 @@ table.detail-table {
 }
 table.detail-table th {
   text-align: left;
-  color: #64748b;
+  color: #9ca3af;
   font-weight: 500;
   padding: 6px;
   font-size: 11px;
 }
-table.detail-table td { padding: 6px; border-top: 1px solid #1f2937; }
-table.detail-table a { color: #93c5fd; text-decoration: none; }
+table.detail-table td { padding: 6px; border-top: 1px solid #f1f5f9; }
+table.detail-table a { color: #c2410c; text-decoration: none; }
 
 .footer {
   margin-top: 32px;
   font-size: 12px;
-  color: #475569;
+  color: #9ca3af;
   text-align: center;
 }
 
@@ -168,24 +174,24 @@ table.detail-table a { color: #93c5fd; text-decoration: none; }
   gap: 10px;
 }
 .market-tile {
-  background: #0d1526;
-  border: 1px solid #1f2937;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
   border-radius: 10px;
   padding: 10px 12px;
 }
-.market-label { font-size: 11px; color: #94a3b8; margin-bottom: 4px; }
-.market-value { font-size: 16px; font-weight: 700; color: #f1f5f9; }
+.market-label { font-size: 11px; color: #6b7280; margin-bottom: 4px; }
+.market-value { font-size: 16px; font-weight: 700; color: #111827; }
 .market-change { font-size: 12px; margin-top: 2px; }
 
 .news-row {
   padding: 8px 0;
-  border-bottom: 1px solid #1f2937;
+  border-bottom: 1px solid #f1f5f9;
   font-size: 13px;
 }
 .news-row:last-child { border-bottom: none; }
-.news-row a { color: #e2e8f0; text-decoration: none; }
-.news-row a:hover { text-decoration: underline; }
-.news-publisher { color: #64748b; font-size: 11px; margin-left: 6px; }
+.news-row a { color: #111827; text-decoration: none; }
+.news-row a:hover { color: #c2410c; text-decoration: underline; }
+.news-publisher { color: #9ca3af; font-size: 11px; margin-left: 6px; }
 """
 
 
@@ -328,12 +334,14 @@ def _build_detail_html(month_earnings):
 
 
 def _format_market_value(symbol, value):
-    if symbol == "KRW=X":
+    if symbol in ("KRW=X", "JPYKRW=X"):
         return f"{value:,.1f}원"
     if symbol == "^TNX":
         return f"{value:.2f}%"
-    if symbol == "CL=F":
+    if symbol in ("CL=F", "GC=F"):
         return f"${value:,.2f}"
+    if symbol == "HG=F":
+        return f"${value:,.3f}"
     if symbol == "BTC-USD":
         return f"${value:,.0f}"
     return f"{value:,.2f}"

@@ -52,7 +52,7 @@ def _badge_html(ticker, status, date_str):
     if status == "announced":
         bg, color = "#e5e7eb", "#6b7280"
     else:
-        bg, color = "#e8edff", "#3b5bdb"
+        bg, color = "#ffedd5", "#c2410c"
     return (
         f'<a href="{_yahoo_link(ticker)}" style="text-decoration:none;">'
         f'<span style="display:inline-block;margin:1px;padding:2px 6px;'
@@ -177,12 +177,14 @@ def build_detail_html(month_earnings):
 
 
 def _format_market_value(symbol, value):
-    if symbol == "KRW=X":
+    if symbol in ("KRW=X", "JPYKRW=X"):
         return f"{value:,.1f}원"
     if symbol == "^TNX":
         return f"{value:.2f}%"
-    if symbol == "CL=F":
+    if symbol in ("CL=F", "GC=F"):
         return f"${value:,.2f}"
+    if symbol == "HG=F":
+        return f"${value:,.3f}"
     if symbol == "BTC-USD":
         return f"${value:,.0f}"
     return f"{value:,.2f}"
@@ -246,7 +248,7 @@ def format_email_html(upcoming, newly_announced, month_earnings, today, ai_brief
     return f"""
     <div style="font-family:-apple-system,Helvetica,sans-serif;max-width:640px;margin:0 auto;color:#111827;">
       <div style="background:#0f172a;color:#fff;border-radius:10px;padding:20px;">
-        <div style="font-size:12px;letter-spacing:1px;color:#93c5fd;">GLOBAL IR CALENDAR</div>
+        <div style="font-size:12px;letter-spacing:1px;color:#fdba74;">GLOBAL IR CALENDAR</div>
         <div style="font-size:20px;font-weight:700;margin-top:4px;">국내외 IR 캘린더</div>
         <div style="font-size:13px;color:#cbd5e1;margin-top:6px;">
           {today.isoformat()}({_weekday_kr(today)}) · 평일 아침 8시 발행 · {len(TICKERS)}개 기업 감시

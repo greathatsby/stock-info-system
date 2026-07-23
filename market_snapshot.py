@@ -15,6 +15,9 @@ INDICATORS = [
     ("^VIX", "VIX(변동성)"),
     ("^TNX", "美 10년물 금리"),
     ("KRW=X", "원/달러 환율"),
+    ("JPYKRW=X", "원/100엔 환율"),
+    ("GC=F", "금(Gold)"),
+    ("HG=F", "구리(Copper)"),
     ("CL=F", "WTI 유가"),
     ("BTC-USD", "비트코인"),
 ]
@@ -38,6 +41,9 @@ def fetch_market_snapshot():
             # ^TNX/^FVX/^TYX 등 CBOE 금리 지수는 야후에서 (금리 x10) 값으로 제공됨
             if symbol == "^TNX":
                 last = last / 10
+            # JPYKRW=X는 "엔화 1엔당 원화"이므로, 한국에서 흔히 쓰는 "100엔당 원화" 기준으로 변환
+            if symbol == "JPYKRW=X":
+                last = last * 100
             snapshot.append(
                 {
                     "symbol": symbol,
@@ -51,7 +57,7 @@ def fetch_market_snapshot():
     return snapshot
 
 
-def fetch_market_news(limit=6):
+def fetch_market_news(limit=10):
     # 시장/경제 관련 최신 뉴스 헤드라인 조회
     try:
         ticker = yf.Ticker(NEWS_TICKER)
