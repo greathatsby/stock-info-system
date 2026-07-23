@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>국내외 IR 캘린더</title>
+<style>
+:root {
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Pretendard, sans-serif;
+  background: #0b1120;
+  color: #e2e8f0;
+  line-height: 1.5;
+}
+.container {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 24px 16px 60px;
+}
+.hero {
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  border: 1px solid #1e293b;
+  border-radius: 14px;
+  padding: 24px;
+}
+.eyebrow {
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: #93c5fd;
+  font-weight: 600;
+}
+.hero h1 {
+  font-size: 26px;
+  margin: 6px 0 8px;
+}
+.meta {
+  font-size: 13px;
+  color: #94a3b8;
+}
+.section-title {
+  font-size: 16px;
+  margin: 28px 0 10px;
+  color: #f1f5f9;
+}
+.card {
+  background: #111827;
+  border: 1px solid #1f2937;
+  border-radius: 12px;
+  padding: 14px;
+}
+.muted { color: #94a3b8; }
+.small { font-size: 12px; }
+
+.briefing-card {
+  background: #0f1e33;
+  border: 1px solid #1e3a5f;
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: 20px;
+}
+.briefing-title { font-weight: 700; margin-bottom: 8px; font-size: 14px; }
+.briefing-body { font-size: 14px; color: #cbd5e1; }
+
+table.calendar {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+table.calendar th {
+  padding: 6px 2px;
+  font-size: 11px;
+  color: #64748b;
+  font-weight: 500;
+}
+.cal-cell {
+  vertical-align: top;
+  padding: 4px;
+  border: 1px solid #1f2937;
+  min-height: 44px;
+  height: 44px;
+}
+.cal-cell-muted .cal-day { color: #334155; }
+.cal-cell-today { background: #1e293b; }
+.cal-day { font-size: 11px; color: #cbd5e1; margin-bottom: 2px; }
+.cal-badges { display: flex; flex-wrap: wrap; gap: 2px; }
+
+.badge {
+  display: inline-block;
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.badge-scheduled { background: #1e2a4a; color: #93c5fd; }
+.badge-announced { background: #1f2937; color: #94a3b8; }
+
+.list-row {
+  padding: 8px 0;
+  border-bottom: 1px solid #1f2937;
+  font-size: 13px;
+}
+.list-row:last-child { border-bottom: none; }
+.dday {
+  display: inline-block;
+  min-width: 46px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: #3a2412;
+  color: #fb923c;
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+  margin-right: 6px;
+}
+.ticker-link { color: #e2e8f0; text-decoration: none; }
+.ticker-link:hover { text-decoration: underline; }
+
+.surprise-up { color: #f87171; font-weight: 600; }
+.surprise-down { color: #60a5fa; font-weight: 600; }
+.surprise-na { color: #94a3b8; }
+
+.detail-date { font-size: 12px; color: #94a3b8; margin: 16px 0 4px; }
+table.detail-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+table.detail-table th {
+  text-align: left;
+  color: #64748b;
+  font-weight: 500;
+  padding: 6px;
+  font-size: 11px;
+}
+table.detail-table td { padding: 6px; border-top: 1px solid #1f2937; }
+table.detail-table a { color: #93c5fd; text-decoration: none; }
+
+.footer {
+  margin-top: 32px;
+  font-size: 12px;
+  color: #475569;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <header class="hero">
+    <div class="eyebrow">GLOBAL IR CALENDAR</div>
+    <h1>국내외 IR 캘린더</h1>
+    <div class="meta">2026-07-23(목) 기준 · 평일 아침 자동 갱신 · 20개 기업 감시</div>
+  </header>
+
+  
+
+  <h2 class="section-title">실적발표 캘린더</h2>
+  <div class="card"><table class="calendar"><thead><tr><th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th></tr></thead><tbody><tr><td class="cal-cell cal-cell-muted"><div class="cal-day">28</div><div class="cal-badges"></div></td><td class="cal-cell cal-cell-muted"><div class="cal-day">29</div><div class="cal-badges"></div></td><td class="cal-cell cal-cell-muted"><div class="cal-day">30</div><div class="cal-badges"></div></td><td class="cal-cell"><div class="cal-day">1</div><div class="cal-badges"></div></td><td class="cal-cell"><div class="cal-day">2</div><div class="cal-badges"></div></td><td class="cal-cell"><div class="cal-day">3</div><div class="cal-badges"></div></td><td class="cal-cell"><div class="cal-day">4</div><div class="cal-badges"></div></td></tr><tr><td class="cal-cell"><div class="cal-day">5</div><div class="cal-badges"></div></td><td class="cal-cell"><div class="cal-day">6</div><div class="cal-badges"></div></td><td class="cal-cell"><div class="cal-day">7</div><div class="cal-badges"></div></td><td class="cal-cell"><div class="cal-day">8</div><div class="cal-badges"></div></td><td class="cal-cell"><div class="cal-day">9</div><div class="cal-badges"></div></td><td class="cal-cell"><div class="cal-day">10</div><div class="cal-badges"></div></td><td class="cal-cell"><div class="cal-day">11</div><div class="cal-badges"></div></td></tr><tr><td class="cal-cell"><div class="cal-day">12</div><div class="cal-badges"></div></td><td class="cal-cell"><div class="cal-day">13</div><div class="cal-badges"><a href="https://finance.yahoo.com/quote/ASML" class="badge badge-announced">ASML</a></div></td><td class="cal-cell"><div class="cal-day">14</div><div class="cal-badges"></div></td><td class="cal-cell"><div class="cal-day">15</div><div class="cal-badges"></div></td><td class="cal-cell"><div class="cal-day">16</div><div class="cal-badges"><a href="https://finance.yahoo.com/quote/TSM" class="badge badge-announced">TSM</a></div></td><td class="cal-cell"><div class="cal-day">17</div><div class="cal-badges"></div></td><td class="cal-cell"><div class="cal-day">18</div><div class="cal-badges"></div></td></tr><tr><td class="cal-cell"><div class="cal-day">19</div><div class="cal-badges"></div></td><td class="cal-cell"><div class="cal-day">20</div><div class="cal-badges"></div></td><td class="cal-cell"><div class="cal-day">21</div><div class="cal-badges"></div></td><td class="cal-cell"><div class="cal-day">22</div><div class="cal-badges"><a href="https://finance.yahoo.com/quote/GOOGL" class="badge badge-announced">GOOGL</a><a href="https://finance.yahoo.com/quote/TSLA" class="badge badge-announced">TSLA</a></div></td><td class="cal-cell cal-cell-today"><div class="cal-day">23</div><div class="cal-badges"><a href="https://finance.yahoo.com/quote/LMT" class="badge badge-scheduled">LMT</a></div></td><td class="cal-cell"><div class="cal-day">24</div><div class="cal-badges"></div></td><td class="cal-cell"><div class="cal-day">25</div><div class="cal-badges"></div></td></tr><tr><td class="cal-cell"><div class="cal-day">26</div><div class="cal-badges"></div></td><td class="cal-cell"><div class="cal-day">27</div><div class="cal-badges"></div></td><td class="cal-cell"><div class="cal-day">28</div><div class="cal-badges"><a href="https://finance.yahoo.com/quote/BA" class="badge badge-scheduled">BA</a></div></td><td class="cal-cell"><div class="cal-day">29</div><div class="cal-badges"><a href="https://finance.yahoo.com/quote/ARM" class="badge badge-scheduled">ARM</a><a href="https://finance.yahoo.com/quote/META" class="badge badge-scheduled">META</a><a href="https://finance.yahoo.com/quote/MSFT" class="badge badge-scheduled">MSFT</a><a href="https://finance.yahoo.com/quote/QCOM" class="badge badge-scheduled">QCOM</a></div></td><td class="cal-cell"><div class="cal-day">30</div><div class="cal-badges"><a href="https://finance.yahoo.com/quote/AAPL" class="badge badge-scheduled">AAPL</a><a href="https://finance.yahoo.com/quote/AMZN" class="badge badge-scheduled">AMZN</a></div></td><td class="cal-cell"><div class="cal-day">31</div><div class="cal-badges"></div></td><td class="cal-cell cal-cell-muted"><div class="cal-day">1</div><div class="cal-badges"></div></td></tr></tbody></table></div>
+
+  <h2 class="section-title">이번 주 실적발표 일정</h2>
+  <div class="card"><div class="list-row"><span class="dday">D-DAY</span><a href="https://finance.yahoo.com/quote/LMT" class="ticker-link">2026-07-23(목) <b>LMT</b></a> <span class="muted small">(컨센서스 EPS $7.20)</span></div><div class="list-row"><span class="dday">D-5</span><a href="https://finance.yahoo.com/quote/BA" class="ticker-link">2026-07-28(화) <b>BA</b></a> <span class="muted small">(컨센서스 EPS $-0.31)</span></div><div class="list-row"><span class="dday">D-6</span><a href="https://finance.yahoo.com/quote/MSFT" class="ticker-link">2026-07-29(수) <b>MSFT</b></a> <span class="muted small">(컨센서스 EPS $4.24)</span></div><div class="list-row"><span class="dday">D-6</span><a href="https://finance.yahoo.com/quote/META" class="ticker-link">2026-07-29(수) <b>META</b></a> <span class="muted small">(컨센서스 EPS $7.23)</span></div><div class="list-row"><span class="dday">D-6</span><a href="https://finance.yahoo.com/quote/QCOM" class="ticker-link">2026-07-29(수) <b>QCOM</b></a> <span class="muted small">(컨센서스 EPS $2.23)</span></div><div class="list-row"><span class="dday">D-6</span><a href="https://finance.yahoo.com/quote/ARM" class="ticker-link">2026-07-29(수) <b>ARM</b></a> <span class="muted small">(컨센서스 EPS $0.40)</span></div><div class="list-row"><span class="dday">D-7</span><a href="https://finance.yahoo.com/quote/AAPL" class="ticker-link">2026-07-30(목) <b>AAPL</b></a> <span class="muted small">(컨센서스 EPS $1.89)</span></div><div class="list-row"><span class="dday">D-7</span><a href="https://finance.yahoo.com/quote/AMZN" class="ticker-link">2026-07-30(목) <b>AMZN</b></a> <span class="muted small">(컨센서스 EPS $1.82)</span></div></div>
+
+  
+
+  <h2 class="section-title">상세 일정</h2>
+  <div class="card"><h3 class="detail-date">2026-06-24</h3><table class="detail-table"><tr><th>종목</th><th>컨센서스 EPS</th><th>실제 EPS</th><th>서프라이즈</th></tr><tr><td><a href="https://finance.yahoo.com/quote/MU">MU</a></td><td>20.71</td><td>25.11</td><td class="surprise-up">+21.2%</td></tr></table><h3 class="detail-date">2026-07-13</h3><table class="detail-table"><tr><th>종목</th><th>컨센서스 EPS</th><th>실제 EPS</th><th>서프라이즈</th></tr><tr><td><a href="https://finance.yahoo.com/quote/ASML">ASML</a></td><td>6.90</td><td>7.58</td><td class="surprise-up">+9.9%</td></tr></table><h3 class="detail-date">2026-07-16</h3><table class="detail-table"><tr><th>종목</th><th>컨센서스 EPS</th><th>실제 EPS</th><th>서프라이즈</th></tr><tr><td><a href="https://finance.yahoo.com/quote/TSM">TSM</a></td><td>3.89</td><td>4.31</td><td class="surprise-up">+10.9%</td></tr></table><h3 class="detail-date">2026-07-22</h3><table class="detail-table"><tr><th>종목</th><th>컨센서스 EPS</th><th>실제 EPS</th><th>서프라이즈</th></tr><tr><td><a href="https://finance.yahoo.com/quote/GOOGL">GOOGL</a></td><td>2.90</td><td>9.11</td><td class="surprise-up">+214.2%</td></tr><tr><td><a href="https://finance.yahoo.com/quote/TSLA">TSLA</a></td><td>0.54</td><td>0.33</td><td class="surprise-down">-38.4%</td></tr></table><h3 class="detail-date">2026-07-23</h3><table class="detail-table"><tr><th>종목</th><th>컨센서스 EPS</th><th>실제 EPS</th><th>서프라이즈</th></tr><tr><td><a href="https://finance.yahoo.com/quote/LMT">LMT</a></td><td>7.20</td><td>N/A</td><td class="surprise-na">N/A</td></tr></table><h3 class="detail-date">2026-07-28</h3><table class="detail-table"><tr><th>종목</th><th>컨센서스 EPS</th><th>실제 EPS</th><th>서프라이즈</th></tr><tr><td><a href="https://finance.yahoo.com/quote/BA">BA</a></td><td>-0.31</td><td>N/A</td><td class="surprise-na">N/A</td></tr></table><h3 class="detail-date">2026-07-29</h3><table class="detail-table"><tr><th>종목</th><th>컨센서스 EPS</th><th>실제 EPS</th><th>서프라이즈</th></tr><tr><td><a href="https://finance.yahoo.com/quote/ARM">ARM</a></td><td>0.40</td><td>N/A</td><td class="surprise-na">N/A</td></tr><tr><td><a href="https://finance.yahoo.com/quote/META">META</a></td><td>7.23</td><td>N/A</td><td class="surprise-na">N/A</td></tr><tr><td><a href="https://finance.yahoo.com/quote/MSFT">MSFT</a></td><td>4.24</td><td>N/A</td><td class="surprise-na">N/A</td></tr><tr><td><a href="https://finance.yahoo.com/quote/QCOM">QCOM</a></td><td>2.23</td><td>N/A</td><td class="surprise-na">N/A</td></tr></table><h3 class="detail-date">2026-07-30</h3><table class="detail-table"><tr><th>종목</th><th>컨센서스 EPS</th><th>실제 EPS</th><th>서프라이즈</th></tr><tr><td><a href="https://finance.yahoo.com/quote/AAPL">AAPL</a></td><td>1.89</td><td>N/A</td><td class="surprise-na">N/A</td></tr><tr><td><a href="https://finance.yahoo.com/quote/AMZN">AMZN</a></td><td>1.82</td><td>N/A</td><td class="surprise-na">N/A</td></tr></table><h3 class="detail-date">2026-08-03</h3><table class="detail-table"><tr><th>종목</th><th>컨센서스 EPS</th><th>실제 EPS</th><th>서프라이즈</th></tr><tr><td><a href="https://finance.yahoo.com/quote/PLTR">PLTR</a></td><td>0.35</td><td>N/A</td><td class="surprise-na">N/A</td></tr></table><h3 class="detail-date">2026-08-04</h3><table class="detail-table"><tr><th>종목</th><th>컨센서스 EPS</th><th>실제 EPS</th><th>서프라이즈</th></tr><tr><td><a href="https://finance.yahoo.com/quote/AMD">AMD</a></td><td>1.61</td><td>N/A</td><td class="surprise-na">N/A</td></tr></table><h3 class="detail-date">2026-08-06</h3><table class="detail-table"><tr><th>종목</th><th>컨센서스 EPS</th><th>실제 EPS</th><th>서프라이즈</th></tr><tr><td><a href="https://finance.yahoo.com/quote/RKLB">RKLB</a></td><td>-0.08</td><td>N/A</td><td class="surprise-na">N/A</td></tr></table></div>
+
+  <div class="footer">Data via Yahoo Finance · Generated by GitHub Actions</div>
+</div>
+</body>
+</html>

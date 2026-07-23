@@ -3,6 +3,8 @@
 매일 아침(KST 08:00, 평일) 미국 주식 20개 종목의 실적 발표 일정과 컨센서스 대비
 서프라이즈를 자동으로 수집해서 HTML 캘린더 메일로 보내주는 시스템입니다.
 Gemini API 키를 등록하면 이번 주 관전 포인트를 요약하는 AI 브리핑도 함께 발송됩니다.
+같은 데이터로 `docs/index.html` 웹 대시보드도 매일 자동 생성되며, GitHub Pages로
+공개 웹사이트처럼 확인할 수 있습니다.
 
 ## 남은 설정
 
@@ -17,3 +19,9 @@ Gemini API 키를 등록하면 이번 주 관전 포인트를 요약하는 AI �
    - GEMINI_API_KEY: 2번에서 발급받은 키 (선택)
 4. Actions 탭 → Daily Stock Earnings Update → Run workflow 로 수동 테스트
 5. 종목 추가/삭제는 watchlist.py 의 TICKERS 리스트만 수정
+6. 웹 대시보드 공개(GitHub Pages, 최초 1회만 설정):
+   - 이 저장소 Settings → Pages 로 이동
+   - Build and deployment → Source: "Deploy from a branch" 선택
+   - Branch: `main` / 폴더: `/docs` 선택 후 저장
+   - 잠시 후 `https://<GitHub 사용자명>.github.io/stock-info-system/` 에서 대시보드 확인 가능
+   - 이후 워크플로우가 실행될 때마다 `docs/index.html` 이 갱신되며 사이트도 자동으로 최신화됩니다
