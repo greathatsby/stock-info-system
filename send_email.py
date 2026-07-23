@@ -181,6 +181,10 @@ def _format_market_value(symbol, value):
         return f"{value:,.1f}원"
     if symbol == "^TNX":
         return f"{value:.2f}%"
+    if symbol == "CL=F":
+        return f"${value:,.2f}"
+    if symbol == "BTC-USD":
+        return f"${value:,.0f}"
     return f"{value:,.2f}"
 
 
