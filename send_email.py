@@ -248,8 +248,8 @@ def format_email_html(upcoming, newly_announced, month_earnings, today, ai_brief
     return f"""
     <div style="font-family:-apple-system,Helvetica,sans-serif;max-width:640px;margin:0 auto;color:#111827;">
       <div style="background:#0f172a;color:#fff;border-radius:10px;padding:20px;">
-        <div style="font-size:12px;letter-spacing:1px;color:#fdba74;">GLOBAL IR CALENDAR</div>
-        <div style="font-size:20px;font-weight:700;margin-top:4px;">국내외 IR 캘린더</div>
+        <div style="font-size:12px;letter-spacing:1px;color:#fdba74;">GLOBAL IR & ECONOMY</div>
+        <div style="font-size:20px;font-weight:700;margin-top:4px;">국내외 IR·경제 캘린더</div>
         <div style="font-size:13px;color:#cbd5e1;margin-top:6px;">
           {today.isoformat()}({_weekday_kr(today)}) · 평일 아침 8시 발행 · {len(TICKERS)}개 기업 감시
         </div>
@@ -331,7 +331,7 @@ def send_email(upcoming, newly_announced, month_earnings, ai_briefing=None, mark
     html_body = format_email_html(upcoming, newly_announced, month_earnings, today, ai_briefing, market_snapshot, market_news)
 
     msg = MIMEMultipart("alternative")
-    msg["Subject"] = f"국내외 IR 캘린더 ({today.isoformat()})"
+    msg["Subject"] = f"국내외 IR·경제 캘린더 ({today.isoformat()})"
     msg["From"] = gmail_user
     msg["To"] = recipient
     msg.attach(MIMEText(text_body, "plain", "utf-8"))

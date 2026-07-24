@@ -413,14 +413,14 @@ def build_site(
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>국내외 IR 캘린더</title>
+<title>국내외 IR·경제 캘린더</title>
 <style>{CSS}</style>
 </head>
 <body>
 <div class="container">
   <header class="hero">
-    <div class="eyebrow">GLOBAL IR CALENDAR</div>
-    <h1>국내외 IR 캘린더</h1>
+    <div class="eyebrow">GLOBAL IR & ECONOMY</div>
+    <h1>국내외 IR·경제 캘린더</h1>
     <div class="meta">{today.isoformat()}({_weekday_kr(today)}) 기준 · 평일 아침 자동 갱신 · {len(TICKERS)}개 기업 감시</div>
   </header>
 
