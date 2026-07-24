@@ -16,6 +16,8 @@ import yfinance as yf
 from watchlist import TICKERS
 from send_email import send_email
 from ai_briefing import generate_briefing
+from build_site import build_site
+from market_snapshot import fetch_market_snapshot, fetch_market_news
 
 DB_PATH = "stocks.db"
 
@@ -199,11 +201,26 @@ def main():
 
     ai_briefing = generate_briefing(upcoming, all_newly_announced, company_context)
 
+    market_snapshot = fetch_market_snapshot()
+    market_news = fetch_market_news()
+
     send_email(
         upcoming=upcoming,
         newly_announced=all_newly_announced,
         month_earnings=month_earnings,
         ai_briefing=ai_briefing,
+        market_snapshot=market_snapshot,
+        market_news=market_news,
+    )
+
+    build_site(
+        upcoming=upcoming,
+        newly_announced=all_newly_announced,
+        month_earnings=month_earnings,
+        ai_briefing=ai_briefing,
+        today=today,
+        market_snapshot=market_snapshot,
+        market_news=market_news,
     )
 
 
